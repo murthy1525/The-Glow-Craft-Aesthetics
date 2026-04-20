@@ -3,8 +3,8 @@ export const SITE = {
   name: 'GlowCraft Makeup Studio',
   slogan: 'Where Beauty Becomes Timeless Elegance',
   email: 'hello@glowcraftstudio.com',
-  phone: '+91 86839 181836',
-  whatsapp: '9186839181836', // digits only, country code first
+  phone: '+91 86391 81836',
+  whatsapp: '918639181836', // digits only, country code first
   address: 'Visakhapatnam, Andhra Pradesh, India',
   hours: 'Mon–Sat · 9:00 AM – 8:00 PM',
   // Replace with your Formspree endpoint: https://formspree.io/f/xxxxxxx
