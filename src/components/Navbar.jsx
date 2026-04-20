@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
@@ -26,6 +27,77 @@ export default function Navbar() {
   useEffect(() => {
     setOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (open) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
+  }, [open]);
+
+  const drawer = (
+    <AnimatePresence>
+      {open && (
+        <div className="lg:hidden">
+          <motion.div
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+            style={{ zIndex: 9998 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setOpen(false)}
+          />
+          <motion.aside
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'tween', duration: 0.3 }}
+            style={{ zIndex: 9999, backgroundColor: '#ffffff' }}
+            className="fixed top-0 right-0 h-full w-[82%] max-w-xs shadow-2xl flex flex-col"
+          >
+            <div className="flex items-center justify-between px-5 h-20 border-b border-pinkSoft shrink-0">
+              <span className="font-serif text-base tracking-[0.15em] text-charcoal">MENU</span>
+              <button
+                aria-label="Close menu"
+                onClick={() => setOpen(false)}
+                className="text-charcoal p-1 hover:text-gold transition"
+              >
+                <HiX size={24} />
+              </button>
+            </div>
+            <nav className="flex-1 overflow-y-auto px-5 py-4 flex flex-col">
+              {links.map((l) => (
+                <NavLink
+                  key={l.to}
+                  to={l.to}
+                  end={l.to === '/'}
+                  className={({ isActive }) =>
+                    `text-base font-medium py-4 border-b border-pinkSoft/60 transition ${
+                      isActive ? 'text-gold' : 'text-charcoal hover:text-gold'
+                    }`
+                  }
+                >
+                  {l.label}
+                </NavLink>
+              ))}
+            </nav>
+            <div className="p-5 border-t border-pinkSoft shrink-0">
+              <Link
+                to="/booking"
+                className="btn-primary w-full text-center"
+                onClick={() => setOpen(false)}
+              >
+                Book Appointment
+              </Link>
+            </div>
+          </motion.aside>
+        </div>
+      )}
+    </AnimatePresence>
+  );
 
   return (
     <header
@@ -84,62 +156,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <>
-            <motion.div
-              className="fixed inset-0 bg-black/40 z-40 lg:hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setOpen(false)}
-            />
-            <motion.aside
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'tween', duration: 0.3 }}
-              className="fixed top-0 right-0 h-full w-[80%] max-w-sm bg-white z-50 shadow-2xl flex flex-col lg:hidden"
-            >
-              <div className="flex items-center justify-between p-5 border-b border-pinkSoft">
-                <span className="font-serif text-lg text-charcoal">Menu</span>
-                <button
-                  aria-label="Close menu"
-                  onClick={() => setOpen(false)}
-                  className="text-charcoal p-1"
-                >
-                  <HiX size={26} />
-                </button>
-              </div>
-              <nav className="flex-1 px-5 py-6 flex flex-col gap-4">
-                {links.map((l) => (
-                  <NavLink
-                    key={l.to}
-                    to={l.to}
-                    end={l.to === '/'}
-                    className={({ isActive }) =>
-                      `text-lg font-medium py-2 border-b border-pinkSoft/60 transition ${
-                        isActive ? 'text-gold' : 'text-charcoal'
-                      }`
-                    }
-                  >
-                    {l.label}
-                  </NavLink>
-                ))}
-              </nav>
-              <div className="p-5 border-t border-pinkSoft">
-                <Link
-                  to="/booking"
-                  className="btn-primary w-full text-center"
-                  onClick={() => setOpen(false)}
-                >
-                  Book Appointment
-                </Link>
-              </div>
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
+      {typeof document !== 'undefined' && createPortal(drawer, document.body)}
     </header>
   );
 }
