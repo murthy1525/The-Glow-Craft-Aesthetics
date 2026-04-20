@@ -109,8 +109,10 @@ export default function Navbar() {
     >
       <div className="container-wide flex items-center justify-between h-20 sm:h-24 gap-4">
         <Link to="/" className="flex items-center leading-none shrink-0 group whitespace-nowrap">
-          <span className="font-serif font-bold text-base sm:text-lg lg:text-xl tracking-[0.18em] text-charcoal group-hover:text-gold transition-colors">
-            THE GLOW CRAFT AESTHETICS
+          <span className="font-serif font-bold text-base sm:text-lg lg:text-xl tracking-[0.18em]">
+            <span className="text-charcoal transition-colors">THE </span>
+            <span style={{ color: '#B91C1C' }} className="transition-colors">GLOW CRAFT</span>
+            <span className="text-charcoal transition-colors"> AESTHETICS</span>
           </span>
         </Link>
 
