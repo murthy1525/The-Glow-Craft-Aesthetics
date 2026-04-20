@@ -15,7 +15,7 @@ export const SITE = {
   // Optional: Elfsight or other Google reviews widget id
   googleReviewsWidgetId: '',
   socials: {
-    instagram: 'https://instagram.com/glowcraftstudio',
+    instagram: 'https://instagram.com/the_glowcraft_aesthetics',
     facebook: 'https://facebook.com/glowcraftstudio',
     pinterest: 'https://pinterest.com/glowcraftstudio',
   },
