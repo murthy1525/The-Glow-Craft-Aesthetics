@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    @apply overflow-x-hidden;
+    max-width: 100%;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans bg-pinkSoft/40 text-charcoal antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-serif tracking-tight;
+  }
+  #root {
+    @apply overflow-x-hidden;
+    max-width: 100vw;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-8 sm:py-3.5
+           rounded-full bg-gradient-gold text-white font-medium
+           shadow-soft hover:shadow-glow transition-all duration-300
+           hover:-translate-y-0.5 active:translate-y-0;
+    background-size: 200% auto;
+  }
+  .btn-primary:hover {
+    background-position: right center;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-8 sm:py-3.5
+           rounded-full border-2 border-gold text-gold font-medium
+           hover:bg-gold hover:text-white transition-all duration-300;
+  }
+  .container-x {
+    @apply w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 2xl:px-20;
+  }
+  .container-wide {
+    @apply w-full px-4 sm:px-6 lg:px-10 xl:px-16 2xl:px-20;
+  }
+  .section {
+    @apply py-16 sm:py-20 lg:py-28;
+  }
+  .eyebrow {
+    @apply uppercase tracking-[0.3em] text-xs sm:text-sm text-gold font-medium;
+  }
+  .heading {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-serif text-charcoal;
+  }
+  .subheading {
+    @apply text-base sm:text-lg text-charcoal/70 max-w-2xl;
+  }
+  .gold-divider {
+    @apply mx-auto h-px w-24 my-5 bg-gradient-gold rounded-full;
+  }
+  .card {
+    @apply bg-white rounded-2xl shadow-soft overflow-hidden border border-pinkSoft/60;
+  }
+  .input {
+    @apply w-full rounded-xl border border-pinkSoft bg-white/80 px-4 py-3
+           text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gold/40
+           focus:border-gold transition;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #FFE4EC;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #D4AF37, #E6C76A);
+  border-radius: 8px;
+}
