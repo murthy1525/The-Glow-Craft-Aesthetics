@@ -1,140 +1,113 @@
-# GlowCraft Makeup Studio
+# GlowCraft Makeup Studio — Website
 
-A luxury, fully responsive, production-ready public website for **GlowCraft Makeup Studio** — built with React + Vite + Tailwind CSS + Framer Motion. **No database required** — all dynamic features run via external services (Formspree for booking emails, Cloudinary/CDN for images, Google Maps embed for location, optional Google Reviews widget).
+A website for a makeup studio. It is built with React, Vite, and Tailwind CSS. It does not need a database — bookings go through Formspree (a form service), and images can come from any image hosting service.
 
-> *"Where Beauty Becomes Timeless Elegance."*
+> "Where Beauty Becomes Timeless Elegance."
 
----
+## Pages
 
-## ✨ Features
+- **Home**
+- **Services**
+- **Gallery**
+- **Booking**
+- **Reviews**
+- **Contact**
 
-- **6 Pages** — Home, Services, Gallery, Booking, Reviews, Contact
-- **Responsive** — mobile-first (320px → desktop+) with Tailwind breakpoints
-- **Animations** — Framer Motion page transitions, scroll reveals, hero parallax
-- **Booking** — Formspree integration sends submissions straight to your inbox
-- **Gallery** — category filter + keyboard-accessible lightbox
-- **Reviews** — static testimonial cards + optional Google Reviews widget slot
-- **Contact** — responsive Google Maps iframe, click-to-call/email
-- **WhatsApp** — floating "Book Now" CTA
-- **SEO** — `react-helmet-async` per-page meta tags
-- **Performance** — lazy-loaded images, custom fonts preloaded, no DB dependencies
+## Features
 
----
+- Works well on phones, tablets, and computers (mobile-first design)
+- Smooth animations using Framer Motion
+- Booking form that sends an email through Formspree
+- Gallery with category filters and a photo lightbox
+- Map on the Contact page
+- A floating "Book Now" button
+- Good SEO tags on every page
+- Fast loading with lazy-loaded images
 
-## 🛠 Tech Stack
+## Tech stack
 
-| Layer | Tool |
-|---|---|
-| Build | Vite |
-| UI | React 18 |
+| Part | Tool |
+| --- | --- |
+| Build tool | Vite |
+| UI library | React 18 |
 | Styling | Tailwind CSS 3 |
 | Routing | React Router v6 |
 | Animation | Framer Motion |
 | Icons | react-icons |
 | SEO | react-helmet-async |
-| Forms | Formspree (no backend) |
-| Images | Cloudinary / any CDN |
+| Forms | Formspree (no backend needed) |
+| Images | Cloudinary or any CDN |
 
----
-
-## 🚀 Getting Started
+## Getting started
 
 ```bash
-# install
 npm install
-
-# dev server
 npm run dev
+```
 
-# production build
+The site opens at `http://localhost:5173`.
+
+To build for production:
+
+```bash
 npm run build
 npm run preview
 ```
 
-The dev server opens at `http://localhost:5173`.
+## How content is set up
 
----
+All the text and settings are in one folder: [`src/data/`](src/data/). You do not need to touch the component code to change them.
 
-## ⚙️ Configuration
+### Business details — [`src/data/site.js`](src/data/site.js)
 
-All editable content lives in [`src/data/`](src/data/). Update these files — no code changes needed.
-
-### 1. Site info — [`src/data/site.js`](src/data/site.js)
+This file holds the studio's name, email, phone, address, and social links. **The values in this file right now are sample/demo data**, not a real business — swap them for the real details before using the site:
 
 ```js
 export const SITE = {
   name: 'GlowCraft Makeup Studio',
-  email: 'hello@glowcraftstudio.com',
-  phone: '+1 (555) 123-4567',
-  whatsapp: '15551234567',          // digits only with country code
-  address: '24 Rosewood Avenue, Beverly Hills, CA 90210',
-  formspreeEndpoint: 'https://formspree.io/f/YOUR_FORM_ID',
-  mapsEmbedSrc: 'https://www.google.com/maps/embed?pb=...',
-  googleReviewsWidgetId: '',        // optional Elfsight widget id
+  email: 'hello@glowcraftstudio.com',   // demo value — replace with the real email
+  phone: '+1 (555) 123-4567',           // demo value — replace with the real phone number
+  whatsapp: '15551234567',              // digits only, with country code
+  address: '24 Rosewood Avenue, Beverly Hills, CA 90210', // demo value — replace with the real address
+  formspreeEndpoint: 'https://formspree.io/f/YOUR_FORM_ID', // your own Formspree form id goes here
+  mapsEmbedSrc: 'https://www.google.com/maps/embed?pb=...', // your own Google Maps embed link goes here
+  googleReviewsWidgetId: '',            // optional Elfsight widget id
   socials: { instagram: '...', facebook: '...', pinterest: '...' },
 };
 ```
 
-### 2. Services — [`src/data/services.js`](src/data/services.js)
-Each card: `id, title, tag, price, description, image, features[]`.
+### Other content files
 
-### 3. Gallery — [`src/data/gallery.js`](src/data/gallery.js)
-Each image: `src, alt, category`. Categories also listed in `galleryCategories`.
+- **Services** — [`src/data/services.js`](src/data/services.js): each service has an id, title, tag, price, description, image, and feature list.
+- **Gallery** — [`src/data/gallery.js`](src/data/gallery.js): each image has a source, alt text, and category.
+- **Testimonials** — [`src/data/testimonials.js`](src/data/testimonials.js): each review has a name, role, rating, avatar, and text.
 
-### 4. Testimonials — [`src/data/testimonials.js`](src/data/testimonials.js)
-Each entry: `name, role, rating, avatar, text`.
+> The gallery and service images currently use free Unsplash stock photos, so the site works right away without any setup.
 
----
-
-## 📨 Formspree Setup (Booking)
+## Setting up the booking form (Formspree)
 
 1. Create a free account at [formspree.io](https://formspree.io).
-2. Create a new form → copy the endpoint (looks like `https://formspree.io/f/abcd1234`).
-3. Paste it into `formspreeEndpoint` in [`src/data/site.js`](src/data/site.js).
-4. Submissions land in your Formspree inbox **and** the email registered on your account.
-5. (Optional) Configure auto-replies / spam filters in the Formspree dashboard.
+2. Create a new form and copy its endpoint (something like `https://formspree.io/f/abcd1234`).
+3. Paste it into `formspreeEndpoint` in `src/data/site.js`.
+4. Form submissions will arrive in your Formspree inbox and your email.
 
-> Want EmailJS instead? Replace the `fetch(...)` call in [`src/pages/Booking.jsx`](src/pages/Booking.jsx) `handleSubmit` with `emailjs.send(...)`. The form state and validation stay the same.
-
----
-
-## 🖼 Cloudinary Setup (Images)
+## Setting up real images (Cloudinary)
 
 1. Sign up at [cloudinary.com](https://cloudinary.com).
-2. Upload images to your media library.
-3. Use the delivery URL with auto-optimization params:
+2. Upload your images.
+3. Use the image URL in this format:
    ```
    https://res.cloudinary.com/<cloud-name>/image/upload/q_auto,f_auto,w_1200/<folder>/<file>.jpg
    ```
-4. Replace placeholder URLs in `src/data/services.js` and `src/data/gallery.js`.
+4. Put these URLs into `src/data/services.js` and `src/data/gallery.js`.
 
-> The current data files use Unsplash placeholders so the site renders out-of-the-box.
+## Setting up the map
 
----
-
-## 🗺 Google Maps Embed
-
-1. Open [Google Maps](https://maps.google.com), search your studio.
+1. Open [Google Maps](https://maps.google.com) and search for the location.
 2. Click **Share → Embed a map → Copy HTML**.
-3. Paste the `src` value into `SITE.mapsEmbedSrc` in `src/data/site.js`.
+3. Paste the `src` link into `mapsEmbedSrc` in `src/data/site.js`.
 
----
-
-## ⭐ Google Reviews (Optional)
-
-The Reviews page already shows a beautiful Google rating card and static testimonials. To embed live reviews:
-
-1. Create a free widget at [Elfsight Google Reviews](https://elfsight.com/google-reviews-widget/).
-2. Copy your widget id (from the embed snippet, e.g. `elfsight-app-xxxxx`).
-3. Paste the id (without the `elfsight-app-` prefix) into `googleReviewsWidgetId` in `src/data/site.js`.
-4. Add the Elfsight platform script to `index.html`:
-   ```html
-   <script src="https://static.elfsight.com/platform/platform.js" defer></script>
-   ```
-
----
-
-## 🗂 Project Structure
+## Project structure
 
 ```
 glowcraft/
@@ -173,50 +146,38 @@ glowcraft/
         └── testimonials.js
 ```
 
----
+## Deployment
 
-## 📦 Deployment
+This is a static site, so it can be hosted almost anywhere:
 
-The site is a fully static SPA — deploy anywhere:
+| Host | Build command | Output folder |
+| --- | --- | --- |
+| Vercel | `npm run build` | `dist` |
+| Netlify | `npm run build` | `dist` |
+| Cloudflare Pages | `npm run build` | `dist` |
+| GitHub Pages | `npm run build` | `dist` |
 
-| Host | Build cmd | Output dir | Notes |
-|---|---|---|---|
-| **Vercel** | `npm run build` | `dist` | zero config |
-| **Netlify** | `npm run build` | `dist` | add `_redirects`: `/* /index.html 200` |
-| **Cloudflare Pages** | `npm run build` | `dist` | enable SPA fallback |
-| **GitHub Pages** | `npm run build` | `dist` | use `vite-plugin-gh-pages` or set `base` in `vite.config.js` |
+For hosts that need it, make sure unknown routes fall back to `index.html` so React Router can handle them.
 
-For SPA hosts, ensure unknown routes fall back to `index.html` so React Router handles them.
+## Design
 
----
-
-## 🎨 Design System
-
-| Token | Value |
-|---|---|
-| Pink (primary) | `#FFC0CB` |
-| Pink (soft bg) | `#FFE4EC` |
+| Item | Value |
+| --- | --- |
+| Pink (main color) | `#FFC0CB` |
+| Pink (light background) | `#FFE4EC` |
 | White / Ivory | `#FFFFFF` / `#FFFDF8` |
 | Gold (accent) | `#D4AF37` |
-| Gold (soft) | `#E6C76A` |
-| Charcoal text | `#2A2A2A` |
-| Serif font | Playfair Display |
-| Sans font | Poppins |
+| Gold (light) | `#E6C76A` |
+| Text color | `#2A2A2A` |
+| Heading font | Playfair Display |
+| Body font | Poppins |
 
-Tailwind tokens live in [`tailwind.config.js`](tailwind.config.js); reusable component classes (`.btn-primary`, `.card`, `.input`, `.section`, `.eyebrow`) live in [`src/index.css`](src/index.css).
+## Notes
 
----
+- There is no login system — this is on purpose, to keep the site simple.
+- To update text, images, or details: edit the files in `src/data/` and redeploy.
+- Bookings can be checked in the Formspree dashboard or inbox.
 
-## 🔐 Admin / Content Updates
+## License
 
-There is no login system — this is by design.
-
-**Update text or images:** edit the relevant file in `src/data/` and redeploy (or push to your connected git host).
-**Update gallery:** upload new image to Cloudinary, paste its URL into `src/data/gallery.js`.
-**View bookings:** check your Formspree dashboard or email inbox.
-
----
-
-## 📜 License
-
-Private — © GlowCraft Makeup Studio.
+This project template is free to learn from and reuse for your own portfolio or demo work.
